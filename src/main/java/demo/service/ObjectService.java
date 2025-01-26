@@ -144,14 +144,6 @@ public class ObjectService {
                 .block();
     }
     
-    public void deleteObject(String systemID, String id) {
-        webClient.delete()
-                .uri(uriBuilder -> uriBuilder
-                    .path("/aii/objects/{systemID}/{id}")
-                    .build(systemID, id))
-                .retrieve()
-                .toBodilessEntity()
-                .block();
-    }
+    
 
 }

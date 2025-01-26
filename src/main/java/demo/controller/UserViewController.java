@@ -81,7 +81,7 @@ private final UserService userService;
             model.addAttribute("user", user);
             return "userDetails";
         } catch (Exception e) {
-            model.addAttribute("error", e.getMessage());
+            model.addAttribute("error", "User not found. Please check your System ID and Email.");
             return "login";
         }
     }

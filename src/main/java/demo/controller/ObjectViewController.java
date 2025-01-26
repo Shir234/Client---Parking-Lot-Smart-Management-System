@@ -266,17 +266,7 @@ public class ObjectViewController {
         }
     }
     
-    @PostMapping("/delete")
-    public String deleteObject(@RequestParam String systemID, @RequestParam String id, Model model) {
-        try {
-            objectService.deleteObject(systemID, id);
-            model.addAttribute("message", "Parking spot deleted successfully!");
-            return "redirect:/objects/manage"; 
-        } catch (Exception e) {
-            model.addAttribute("error", e.getMessage());
-            return "error";
-        }
-    }
+ 
 
 
     
