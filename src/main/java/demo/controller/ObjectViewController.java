@@ -214,4 +214,56 @@ public class ObjectViewController {
         }
     }
     
+    @GetMapping("/update/{systemID}/{id}")
+    public String showUpdateForm(@PathVariable String systemID,
+                               @PathVariable String id,
+                               @RequestParam String userSystemID,
+                               @RequestParam String userEmail,
+                               Model model) {
+        try {
+            ObjectBoundary object = objectService.getObject(systemID, id, userSystemID, userEmail);
+            model.addAttribute("object", object);
+            return "objects/update";
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        }
+    }
+    
+    @GetMapping("/update")
+    public String showUpdateInitialForm(Model model) {
+        ObjectBoundary object = new ObjectBoundary();
+        object.setLocation(new Location());
+        object.setCreatedBy(new CreatedBy());
+        object.getCreatedBy().setUserId(new UserId());
+        model.addAttribute("object", object);
+        return "objects/update";
+    }
+
+    @PostMapping("/update")
+    public String updateObject(@ModelAttribute ObjectBoundary object, Model model) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            if (object.getObjectDetailsJson() != null && !object.getObjectDetailsJson().isEmpty()) {
+                TypeReference<Map<String, Object>> typeRef = new TypeReference<>() {};
+                object.setObjectDetails(mapper.readValue(object.getObjectDetailsJson(), typeRef));
+            }
+            
+            objectService.updateObject(
+                object.getObjectId().getSystemID(),
+                object.getObjectId().getId(),
+                object.getCreatedBy().getUserId().getSystemID(),
+                object.getCreatedBy().getUserId().getEmail(),
+                object
+            );
+            
+            model.addAttribute("message", "Object updated successfully!");
+            model.addAttribute("object", object);
+            return "objects/details";
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        }
+    }
+    
 }

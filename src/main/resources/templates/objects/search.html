@@ -3,148 +3,60 @@
 
 <head>
 	<title>Search Objects</title>
-	<style>
-		.nav-bar {
-			background-color: #333;
-			overflow: hidden;
-			padding: 10px;
-		}
-
-		.nav-bar a {
-			color: white;
-			text-decoration: none;
-			padding: 14px 16px;
-			float: left;
-		}
-
-		.nav-bar a:hover {
-			background-color: #ddd;
-			color: black;
-		}
-
-		.form-container {
-			max-width: 500px;
-			margin: 30px auto;
-			padding: 20px;
-			background-color: #f5f5f5;
-			border-radius: 5px;
-			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-		}
-
-		.form-group {
-			margin-bottom: 15px;
-		}
-
-		.form-group label {
-			display: block;
-			margin-bottom: 5px;
-			font-weight: bold;
-		}
-
-		.form-group input,
-		.form-group select {
-			width: 100%;
-			padding: 8px;
-			border: 1px solid #ddd;
-			border-radius: 4px;
-			box-sizing: border-box;
-		}
-
-		.submit-button {
-			background-color: #4CAF50;
-			color: white;
-			padding: 10px 20px;
-			border: none;
-			border-radius: 4px;
-			cursor: pointer;
-			width: 100%;
-			margin-top: 10px;
-		}
-
-		.submit-button:hover {
-			background-color: #45a049;
-		}
-
-		.error-message {
-			color: red;
-			margin-top: 10px;
-		}
-
-		.links {
-			text-align: center;
-			margin-top: 15px;
-		}
-
-		.links a {
-			color: #3498db;
-			text-decoration: none;
-		}
-
-		.links a:hover {
-			text-decoration: underline;
-		}
-	</style>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
-	<!-- Navigation bar -->
-	<div class="nav-bar">
-		<a th:href="@{/}">Home</a>
-		<a th:href="@{/}">Home</a>
-		<a th:href="@{/users/register}">Register</a>
-		<a th:href="@{/users/login}">Login</a>
-		<a th:href="@{/users/update}">Update Profile</a>
-		<a th:href="@{/objects/manage}">Manage Objects</a>
-	</div>
+	<div th:replace="~{fragments/navbar :: navbar}"></div>
 
 	<div class="form-container">
 		<h2>Search Objects</h2>
 		<div class="search-section">
-		    <h3>Get Single Object</h3>
-		    <form th:action="@{/objects/view}" method="get">
-		        <div class="form-group">
-		            <label>System ID:</label>
-		            <input type="text" name="systemID" required />
-		        </div>
-		        <div class="form-group">
-		            <label>Object ID:</label>
-		            <input type="text" name="id" required />
-		        </div>
-		        <div class="form-group">
-		            <label>User System ID:</label>
-		            <input type="text" name="userSystemID" required />
-		        </div>
-		        <div class="form-group">
-		            <label>User Email:</label>
-		            <input type="email" name="userEmail" required />
-		        </div>
-		        <button type="submit" class="submit-button">Get Object</button>
-		    </form>
+			<h3>Get Single Object</h3>
+			<form th:action="@{/objects/view}" method="get">
+				<div class="form-group">
+					<label>System ID:</label>
+					<input type="text" name="systemID" required />
+				</div>
+				<div class="form-group">
+					<label>Object ID:</label>
+					<input type="text" name="id" required />
+				</div>
+				<div class="form-group">
+					<label>User System ID:</label>
+					<input type="text" name="userSystemID" required />
+				</div>
+				<div class="form-group">
+					<label>User Email:</label>
+					<input type="email" name="userEmail" required />
+				</div>
+				<button type="submit" class="submit-button">Get Object</button>
+			</form>
 		</div>
 
 		<div class="search-section">
-		    <h3>Get All Objects</h3>
-		    <form th:action="@{/objects/list}" method="get">
-		        <div class="form-group">
-		            <label>User System ID:</label>
-		            <input type="text" name="userSystemID" required />
-		        </div>
-		        <div class="form-group">
-		            <label>User Email:</label>
-		            <input type="email" name="userEmail" required />
-		        </div>
-		        <div class="form-group">
-		            <label>Page Size:</label>
-		            <input type="number" name="size" value="10" min="1" />
-		        </div>
-		        <div class="form-group">
-		            <label>Page Number:</label>
-		            <input type="number" name="page" value="0" min="0" />
-		        </div>
-		        <button type="submit" class="submit-button">Get All Objects</button>
-		    </form>
+			<h3>Get All Objects</h3>
+			<form th:action="@{/objects/list}" method="get">
+				<div class="form-group">
+					<label>User System ID:</label>
+					<input type="text" name="userSystemID" required />
+				</div>
+				<div class="form-group">
+					<label>User Email:</label>
+					<input type="email" name="userEmail" required />
+				</div>
+				<div class="form-group">
+					<label>Page Size:</label>
+					<input type="number" name="size" value="10" min="1" />
+				</div>
+				<div class="form-group">
+					<label>Page Number:</label>
+					<input type="number" name="page" value="0" min="0" />
+				</div>
+				<button type="submit" class="submit-button">Get All Objects</button>
+			</form>
 		</div>
-		
+
 		<div class="search-section">
 			<h3>Search by Type</h3>
 			<form th:action="@{/objects/search/byType}" method="get">
