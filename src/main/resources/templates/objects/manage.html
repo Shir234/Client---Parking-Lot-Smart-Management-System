@@ -13,6 +13,21 @@
         <a th:href="@{/objects/create}" class="button">Create New Object</a>
         <a th:href="@{/objects/search}" class="button">Get / Search Objects</a>
 		<a th:href="@{/objects/update}" class="button">Update Object</a>
+		<h3>Delete Parking Spot</h3>
+		    <form th:action="@{/objects/delete}" method="post">
+		        <div class="form-group">
+		            <label>System ID:</label>
+		            <input type="text" name="systemID" placeholder="Enter System ID" required />
+		        </div>
+		        <div class="form-group">
+		            <label>Object ID:</label>
+		            <input type="text" name="id" placeholder="Enter Object ID" required />
+		        </div>
+		        <button type="submit" class="submit-button warning"
+		                onclick="return confirm('Are you sure you want to delete this parking spot?')">
+		            Delete
+		        </button>
+		    </form>
     </div>
 </body>
 </html>

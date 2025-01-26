@@ -45,7 +45,9 @@
 					class="button update-button">
 					Update User Information
 				</a>
-
+				<a th:href="@{/dashboard(systemID=${user.userId.systemID}, userEmail=${user.userId.email})}" class="button go-to-dashboard">
+				    Go to Dashboard
+				</a>
 				<a th:href="@{/}" class="button back-button">
 					Back to Home Page
 				</a>

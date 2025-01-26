@@ -147,5 +147,26 @@ private final UserService userService;
         }
     }
     
+    @GetMapping("/dashboard")
+    public String redirectToDashboard(@RequestParam String systemID, @RequestParam String userEmail, Model model) {
+        try {
+            UserBoundary user = userService.loginUser(systemID, userEmail);
+            switch (user.getRole()) {
+                case "ADMIN":
+                    return "redirect:/admin";
+                case "OPERATOR":
+                    return "redirect:/objects/manage";
+                case "END_USER":
+                    return "redirect:/parking/search";
+                default:
+                    throw new IllegalArgumentException("Unknown role: " + user.getRole());
+            }
+        } catch (Exception e) {
+            model.addAttribute("error", "Failed to determine dashboard: " + e.getMessage());
+            return "error";
+        }
+    }
+
+    
     
 }
