@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import demo.model.NewUserBoundary;
 import demo.model.UserBoundary;
 import demo.service.UserService;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UserViewController {
@@ -85,7 +86,7 @@ private final UserService userService;
             return "login";
         }
     }
-    
+      
     /*
      * Functionality to update an existing user through the top-navigator bar
      */

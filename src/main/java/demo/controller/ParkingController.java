@@ -25,25 +25,25 @@ public class ParkingController {
         return "parking/search";
     }
 
-    @GetMapping("/search/byLocation")
-    public String searchByLocation(@RequestParam double lat,
-                                    @RequestParam double lng,
-                                    @RequestParam double distance,
-                                    @RequestParam(defaultValue = "10") int size,
-                                    Model model) {
-        try {
-            // מחליף את הפרטים בערכי משתמש מחובר
-            String userSystemID = "2025a.Shir.Falach"; 
-            String userEmail = "enduser@example.com";
-
-            List<ObjectBoundary> objects = objectService.getObjectsByLocation(
-                userSystemID, userEmail, lat, lng, distance, "KM", 0, size);
-            model.addAttribute("objects", objects);
-        } catch (Exception e) {
-            model.addAttribute("error", e.getMessage());
-        }
-        return "parking/searchResults";
-    }
+//    @GetMapping("/search/byLocation")
+//    public String searchByLocation(@RequestParam double lat,
+//                                    @RequestParam double lng,
+//                                    @RequestParam double distance,
+//                                    @RequestParam(defaultValue = "10") int size,
+//                                    Model model) {
+//        try {
+//            // מחליף את הפרטים בערכי משתמש מחובר
+//            String userSystemID = "2025a.Shir.Falach"; 
+//            String userEmail = "enduser@example.com";
+//
+//            List<ObjectBoundary> objects = objectService.getObjectsByLocation(
+//                userSystemID, userEmail, lat, lng, distance, "KM", 0, size);
+//            model.addAttribute("objects", objects);
+//        } catch (Exception e) {
+//            model.addAttribute("error", e.getMessage());
+//        }
+//        return "parking/searchResults";
+//    }
 
     @GetMapping("/search/byType")
     public String searchByType(@RequestParam String type,

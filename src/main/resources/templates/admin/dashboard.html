@@ -53,6 +53,26 @@
 			</form>
 		</div>
 
+
+		<!-- Objects Section -->
+		<div class="search-section">
+			<h3>Objects Management</h3>
+			<form th:action="@{/admin/objects/delete}" method="post">
+				<div class="form-group">
+					<label>Admin System ID:</label>
+					<input type="text" name="userSystemID" required>
+				</div>
+				<div class="form-group">
+					<label>Admin Email:</label>
+					<input type="email" name="userEmail" required>
+				</div>
+				<button type="submit" class="submit-button warning"
+					onclick="return confirm('Are you sure you want to delete all objects?')">
+					Delete All Objects
+				</button>
+			</form>
+		</div>
+		
 		<!-- Commands Section -->
 		<div class="search-section">
 			<h3>Commands Management</h3>
@@ -88,25 +108,6 @@
 				<button type="submit" class="submit-button warning"
 					onclick="return confirm('Are you sure you want to delete all commands?')">
 					Delete All Commands
-				</button>
-			</form>
-		</div>
-
-		<!-- Objects Section -->
-		<div class="search-section">
-			<h3>Objects Management</h3>
-			<form th:action="@{/admin/objects/delete}" method="post">
-				<div class="form-group">
-					<label>Admin System ID:</label>
-					<input type="text" name="userSystemID" required>
-				</div>
-				<div class="form-group">
-					<label>Admin Email:</label>
-					<input type="email" name="userEmail" required>
-				</div>
-				<button type="submit" class="submit-button warning"
-					onclick="return confirm('Are you sure you want to delete all objects?')">
-					Delete All Objects
 				</button>
 			</form>
 		</div>

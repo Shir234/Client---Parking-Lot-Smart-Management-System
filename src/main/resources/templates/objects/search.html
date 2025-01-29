@@ -92,8 +92,11 @@
 					<input type="text" name="type" required />
 				</div>
 				<div class="form-group">
-					<label>Status:</label>
-					<input type="text" name="status" required />
+				    <label>Status:</label>
+				    <select name="status" required>
+				        <option value="AVAILABLE">Available</option>
+				        <option value="OCCUPIED">Occupied</option>
+				    </select>
 				</div>
 				<div class="form-group">
 					<label>User System ID:</label>
@@ -188,10 +191,17 @@
 					<label>Units:</label>
 					<select name="units">
 						<option value="NEUTRAL">NEUTRAL</option>
-						<option value="KM">KM</option>
+						<option value="KILOMETERS">KILOMETERS</option>
 						<option value="MILES">MILES</option>
 					</select>
 				</div>
+				<div class="form-group">
+				           <label>Search Method:</label>
+				           <select name="useCircle">
+				               <option value="false">Box Search</option>
+				               <option value="true">Circle Search</option>
+				           </select>
+				       </div>
 				<div class="form-group">
 					<label>User System ID:</label>
 					<input type="text" name="userSystemID" required />

@@ -14,9 +14,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import demo.model.CreatedBy;
 import demo.model.Location;
 import demo.model.ObjectBoundary;
-
+import demo.model.UserBoundary;
 import demo.model.UserBoundary.UserId;
 import demo.service.ObjectService;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/objects")
@@ -27,15 +28,32 @@ public class ObjectViewController {
         this.objectService = objectService;
     }
     
+//    @GetMapping("/create")
+//    public String showCreateForm(Model model) {
+//        ObjectBoundary object = new ObjectBoundary();
+//        object.setLocation(new Location());
+//        object.setCreatedBy(new CreatedBy());
+//        object.getCreatedBy().setUserId(new UserId());
+//        model.addAttribute("object", object);
+//        return "objects/create";
+//    }
     @GetMapping("/create")
-    public String showCreateForm(Model model) {
+    public String showCreateForm(Model model, HttpSession session) {
+        UserBoundary loggedInUser = (UserBoundary) session.getAttribute("loggedInUser");
+        if (loggedInUser == null) {
+            return "redirect:/users/login";
+        }
+
         ObjectBoundary object = new ObjectBoundary();
         object.setLocation(new Location());
         object.setCreatedBy(new CreatedBy());
-        object.getCreatedBy().setUserId(new UserId());
+        
+        // Auto-fill user credentials from session
+        object.getCreatedBy().setUserId(loggedInUser.getUserId());
         model.addAttribute("object", object);
         return "objects/create";
     }
+    
     
     @PostMapping("/create")
     public String createObject(@ModelAttribute ObjectBoundary object, Model model) {
@@ -165,7 +183,8 @@ public class ObjectViewController {
     public String searchByLocation(@RequestParam double lat,
                                  @RequestParam double lng,
                                  @RequestParam double distance,
-                                 @RequestParam String units,
+                                 @RequestParam(defaultValue = "NEUTRAL") String units,
+                                 @RequestParam(defaultValue = "false") boolean useCircle,
                                  @RequestParam String userSystemID,
                                  @RequestParam String userEmail,
                                  @RequestParam(defaultValue = "0") int page,
@@ -173,7 +192,7 @@ public class ObjectViewController {
                                  Model model) {
         try {
             List<ObjectBoundary> objects = objectService.getObjectsByLocation(
-                userSystemID, userEmail, lat, lng, distance, units, page, size);
+                userSystemID, userEmail, lat, lng, distance, units, useCircle, page, size);
             model.addAttribute("objects", objects);
             return "objects/list";
         } catch (Exception e) {

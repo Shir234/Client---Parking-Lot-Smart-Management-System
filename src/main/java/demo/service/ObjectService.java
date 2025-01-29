@@ -96,13 +96,14 @@ public class ObjectService {
     }
 
     public List<ObjectBoundary> getObjectsByLocation(String userSystemID, String userEmail, double lat, 
-                                                   double lng, double distance, String units, int page, int size) {
+                                                   double lng, double distance, String units, boolean useCircle, int page, int size) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
                     .path("/aii/objects/search/byLocation/{lat}/{lng}/{distance}")
                     .queryParam("userSystemID", userSystemID)
                     .queryParam("userEmail", userEmail)
                     .queryParam("units", units)
+                    .queryParam("useCircle", useCircle)
                     .queryParam("page", page)
                     .queryParam("size", size)
                     .build(lat, lng, distance))
