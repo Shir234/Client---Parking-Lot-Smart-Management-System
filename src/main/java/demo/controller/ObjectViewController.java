@@ -14,42 +14,26 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import demo.model.CreatedBy;
 import demo.model.Location;
 import demo.model.ObjectBoundary;
-import demo.model.UserBoundary;
 import demo.model.UserBoundary.UserId;
 import demo.service.ObjectService;
-import jakarta.servlet.http.HttpSession;
+
 
 @Controller
 @RequestMapping("/objects")
 public class ObjectViewController {
     private final ObjectService objectService;
-    
+
+
     public ObjectViewController(ObjectService objectService) {
         this.objectService = objectService;
     }
     
-//    @GetMapping("/create")
-//    public String showCreateForm(Model model) {
-//        ObjectBoundary object = new ObjectBoundary();
-//        object.setLocation(new Location());
-//        object.setCreatedBy(new CreatedBy());
-//        object.getCreatedBy().setUserId(new UserId());
-//        model.addAttribute("object", object);
-//        return "objects/create";
-//    }
     @GetMapping("/create")
-    public String showCreateForm(Model model, HttpSession session) {
-        UserBoundary loggedInUser = (UserBoundary) session.getAttribute("loggedInUser");
-        if (loggedInUser == null) {
-            return "redirect:/users/login";
-        }
-
+    public String showCreateForm(Model model) {
         ObjectBoundary object = new ObjectBoundary();
         object.setLocation(new Location());
         object.setCreatedBy(new CreatedBy());
-        
-        // Auto-fill user credentials from session
-        object.getCreatedBy().setUserId(loggedInUser.getUserId());
+        object.getCreatedBy().setUserId(new UserId());
         model.addAttribute("object", object);
         return "objects/create";
     }
@@ -96,6 +80,7 @@ public class ObjectViewController {
             return "error";
         }
     }
+
     
     @GetMapping("/manage")
     public String showManagePage() {
@@ -285,8 +270,6 @@ public class ObjectViewController {
         }
     }
     
- 
 
-
-    
+        
 }
