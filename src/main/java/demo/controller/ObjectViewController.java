@@ -64,7 +64,7 @@ public class ObjectViewController {
         }
             return "error";
     }
-    
+
     @GetMapping("/view")
     public String viewObject(@RequestParam String systemID, 
                             @RequestParam String id,
@@ -73,14 +73,18 @@ public class ObjectViewController {
                             Model model) {
         try {
             ObjectBoundary object = objectService.getObject(systemID, id, userSystemID, userEmail);
+            
+            if (!object.isActive()) {
+                model.addAttribute("error", "The requested parking spot is not active.");
+                return "error";
+            }
             model.addAttribute("object", object);
             return "objects/details";
         } catch (Exception e) {
-            model.addAttribute("error", e.getMessage());
+            model.addAttribute("error", "Parking spot not found. It might not exist or is inactive.");
             return "error";
-        }
+        } 
     }
-
     
     @GetMapping("/manage")
     public String showManagePage() {
